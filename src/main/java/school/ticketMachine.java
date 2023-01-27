@@ -4,12 +4,10 @@ import java.util.Scanner;
 
 public class ticketMachine {
     public static void main(String[] args) {
-
         Scanner tastatur = new Scanner(System.in);
-
         double zuZahlenderBetrag = 0;
         double eingezahlterGesamtbetrag;
-        double rueckgabebetrag;
+        double rueckgabebetrag;        
 
         Begrüßung();
         zuZahlenderBetrag = fahrkartenbestellungErfassen(tastatur);
@@ -29,36 +27,33 @@ public class ticketMachine {
      * prints out ticket information
      */
     public static void Begrüßung() {
-        System.out.print("Herzlich Willkommen\n");
-        System.out.print(
-                "Wählen Sie das Gewünschte Ticket:\n  Kurzstrecke AB [2,00 EUR] (1)\n  Einzelfahrschein AB [3,00 EUR] (2)\n  Tageskarte AB [8,80 EUR] (3)\n  4-Fahrten-Karte AB [9,40 EUR] (4)\n ");
+    //    System.out.print(
+//                "Wählen Sie das Gewünschte Ticket:\n  Kurzstrecke AB [2,00 EUR] (1)\n  Einzelfahrschein AB [3,00 EUR] (2)\n  Tageskarte AB [8,80 EUR] (3)\n  4-Fahrten-Karte AB [9,40 EUR] (4)\n ");
     }
     /*
      * Selects ticket and ticketcount, and give back total costs
      */
     public static double fahrkartenbestellungErfassen(Scanner tastatur) {
         int ticketnr;
+        int index =0;
         double zuZahlenderBetrag = 0;
-
+        float[] ticketPreis ={3f,3.5f,3.8f,2f,8.6f,9.2f,10f,9.4f,12.6f,13.8f,25.5f,26f,26.5f};
+        String[]fahrkartenBezeichnung ={"Einzelfahrschein AB","Einzelfahrschein BC","Einzelfahrschein AC",
+                                        "Kurzstrecke AB","Tageskarte AB","Tageskarte BC","Tageskarte ABC",
+                                        "4-Fahrten-Karte-AB","4-Fahrten-Karte BC","4-Fahrten-Karte ABC",
+                                        "Kleingruppen-Tageskarte AB","Kleingruppen-Tageskarte BC","Kleingruppen-Tageskarte ABC"};
+        System.out.print("Herzlich Willkommen\n");
+        for (String ticket : fahrkartenBezeichnung) {
+            System.out.print(index+1+":\t"+ticketPreis[index]+"€\t"+ticket+"\n");
+            index++;
+        }
         ticketnr = tastatur.nextInt();
-        while (ticketnr < 1 || ticketnr > 4) {
+        while (ticketnr < 1 || ticketnr > 13) {
             System.out.print("Bitte geben sie eine valide Ticketnummer an\n");
             ticketnr = tastatur.nextInt();
         }
-        switch (ticketnr) {
-            case 1:
-                zuZahlenderBetrag = 2.0;
-                break;
-            case 2:
-                zuZahlenderBetrag = 3.0;
-                break;
-            case 3:
-                zuZahlenderBetrag = 8.8;
-                break;
-            case 4:
-                zuZahlenderBetrag = 9.4;
-                break;
-        }
+
+        zuZahlenderBetrag = ticketPreis[ticketnr-1];
 
         System.out.print("Anzahl der Tickets eingeben\n ");
         int ticketcount = tastatur.nextInt();
